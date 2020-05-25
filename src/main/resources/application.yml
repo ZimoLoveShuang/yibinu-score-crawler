@@ -1,0 +1,52 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /yibinu-score-crawler
+spring:
+  jmx:
+    default-domain: yibinu-score-crawler
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /views/
+      suffix: .jsp
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://www.zimo.wiki:3306/yibinu-score-crawler?useSSL=true
+    username: score
+    password: score
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      hikari.pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  profiles:
+    active: dev
+# 登陆页同时也是登陆接口
+LOGIN_API: http://authserver.yibinu.edu.cn/authserver/login?service=http%3A%2F%2Fehall.yibinu.edu.cn%2Flogin%3Fservice%3Dhttp%3A%2F%2Fehall.yibinu.edu.cn%2Fnew%2Findex.html
+# 成绩查询之前的角色选择接口
+SELECT_ROLE_API: http://ehall.yibinu.edu.cn/appMultiGroupEntranceList?r_t={}&appId=4768574631264620&param=
+# 成绩查询接口
+SCORE_API: http://ehall.yibinu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do?querySetting=%5B%7B%22name%22%3A%22SFYX%22%2C%22caption%22%3A%22%E6%98%AF%E5%90%A6%E6%9C%89%E6%95%88%22%2C%22linkOpt%22%3A%22AND%22%2C%22builderList%22%3A%22cbl_m_List%22%2C%22builder%22%3A%22m_value_equal%22%2C%22value%22%3A%221%22%2C%22value_display%22%3A%22%E6%98%AF%22%7D%2C%7B%22name%22%3A%22SHOWMAXCJ%22%2C%22caption%22%3A%22%E6%98%BE%E7%A4%BA%E6%9C%80%E9%AB%98%E6%88%90%E7%BB%A9%22%2C%22linkOpt%22%3A%22AND%22%2C%22builderList%22%3A%22cbl_String%22%2C%22builder%22%3A%22equal%22%2C%22value%22%3A0%2C%22value_display%22%3A%22%E5%90%A6%22%7D%5D&*order=-XNXQDM%2C-KCH%2C-KXH&pageSize=100&pageNumber=1
+# 学生基本信息查询页
+XSJBXX_URL: http://ehall.yibinu.edu.cn/appShow?appId=5314637135076659
+# 学生基本信息查询接口
+XSJBXX_API: http://ehall.yibinu.edu.cn/jwapp/sys/xsjbxxgl/modules/xsjbxx/cxxsjbxxlb.do?*json=1
+# 是否需要验证码接口，连续三次输错密码智慧校园将会要求输入验证码，防君子不防小人
+NEEDCAPTCHA_API: http://authserver.yibinu.edu.cn/authserver/needCaptcha.html
+# 获取验证码接口
+CAPTCHA_API: http://authserver.yibinu.edu.cn/authserver/captcha.html
+author:
+  qq: 461009747
