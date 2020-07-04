@@ -18,7 +18,7 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://www.zimo.wiki:3306/yibinu-score-crawler?useSSL=true
     username: score
     password: score

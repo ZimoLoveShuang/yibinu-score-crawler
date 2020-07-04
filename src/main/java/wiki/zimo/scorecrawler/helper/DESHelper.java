@@ -19,7 +19,8 @@ import java.util.UUID;
  * 今日校园App Cpdaily-Extension字段加解密实现
  */
 public class DESHelper {
-    private static final String DEFAULT_KEY = "ST83=@XV";
+    //    private static final String DEFAULT_KEY = "ST83=@XV";
+    private static final String DEFAULT_KEY = "XCE927==";
     private static final byte[] IV = {1, 2, 3, 4, 5, 6, 7, 8};
 
     private static final String CHARSET_NAME = "utf-8";
@@ -82,8 +83,8 @@ public class DESHelper {
         object.put("lat", 0);
         object.put("userId", 161105024);
 //        String s = encryptDES(object.toString());
-        String s = "1wAXD2TvR72sQ8u+0Dw8Dr1Qo1jhbem8Nr+LOE6xdiqxKKuj5sXbDTrOWcaf v1X35UtZdUfxokyuIKD4mPPw5LwwsQXbVZ0Q+sXnuKEpPOtk2KDzQoQ89KVs gslxPICKmyfvEpl58eloAZSZpaLc3ifgciGw+PIdB6vOsm2H6KSbwD8FpjY3 3Tprn2s5jeHOp/3GcSdmiFLYwYXjBt7pwgd/ERR3HiBfCgGGTclquQz+tgjJ PdnDjA==";
-        System.out.println(s);
+//        System.out.println(encryptDES(object.toString()));
+        String s = "f8nyr/FcxcZ44radTkUjFYSMwgh6ZH0ijtFTOlK2YAwmCd9OiAsuhRMziE0g CFH4HoNiywN5UH445XZUDnc0uAhvNCdKSTOnk075IOZoXafLmENE4NXp5+vu iWxvpIockDfICF9DEOok9o/uq4aWdGRy3bxSZqUqyBFHToVgPtOs9tx9T6iS XDLxtUDXaZOskxKHAUrR3gaIP+y8rbsC6+mEVyzWGuLb";
         System.out.println(decryptDES(s));
     }
 }
