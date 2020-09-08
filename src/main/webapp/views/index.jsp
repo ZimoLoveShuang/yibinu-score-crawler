@@ -27,7 +27,6 @@
 <div class="page-container">
     <h1>成绩单</h1>
     <form action="${pageContext.request.contextPath}/api/getScoreReport" method="post">
-        <span style="font-size: 12px;">已有${visitorNum}人通过本站下载了成绩单</span>
         <input type="text" name="xh" class="username" placeholder="学号">
         <input type="password" name="pwd" class="password" placeholder="密码">
         <button type="submit" id="btn">下载成绩单</button>

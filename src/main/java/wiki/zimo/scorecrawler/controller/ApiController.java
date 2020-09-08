@@ -10,7 +10,6 @@ import wiki.zimo.scorecrawler.domain.Student;
 import wiki.zimo.scorecrawler.service.CrawlerService;
 import wiki.zimo.scorecrawler.service.LoginService;
 import wiki.zimo.scorecrawler.service.TemplateService;
-import wiki.zimo.scorecrawler.service.VisitorService;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -33,21 +32,21 @@ public class ApiController {
     private CrawlerService crawlerService;
     @Autowired
     private TemplateService templateService;
-    @Autowired
-    private VisitorService visitorService;
+//    @Autowired
+//    private VisitorService visitorService;
 
     @RequestMapping("/getScoreReport")
     public void getScoreReport(@RequestParam("xh") String xh, @RequestParam("pwd") String pwd, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            HttpSession session = request.getSession();
             Student student = new Student(xh, pwd);
             Map<String, String> cookies = loginService.login(student.getXh(), student.getPwd());
 
             // 登陆成功
-            // 更新访客数
-            visitorService.addVisitorNum();
             // 抓取成绩信息
+            // 默认新系统
             Student studentWithScore = crawlerService.getStudentWithScore(cookies);
+            // 老系统
+//            Student studentWithScore = crawlerService.getStudentWithScore(cookies, CrawlerServiceImpl.SystemType.OLD,"C:\\\\Users\\\\zimo\\\\Downloads\\\\详细成绩.html");
             // 获取模板
             XWPFTemplate template = templateService.renderWordTemplate(studentWithScore);
             String fileName = String.valueOf(System.currentTimeMillis());

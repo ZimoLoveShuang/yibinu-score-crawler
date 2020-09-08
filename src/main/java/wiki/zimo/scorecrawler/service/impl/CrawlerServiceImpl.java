@@ -31,7 +31,7 @@ public class CrawlerServiceImpl implements CrawlerService {
     @Value("${XSJBXX_API}")
     private String XSJBXX_API;// 学生基本信息查询接口
 
-    private enum SystemType {
+    public enum SystemType {
         OLD,
         NEW
     }
@@ -40,8 +40,22 @@ public class CrawlerServiceImpl implements CrawlerService {
     public Student getStudentWithScore(Map<String, String> cookies) throws IOException {
         Student user = new Student();
         queryStudentInfo(cookies, user);
-        queryScore(cookies, user, SystemType.NEW);
+        queryScore(cookies, user, SystemType.NEW, null);
 
+//        System.out.println("解析后的成绩：");
+//        System.out.println(scores);
+
+
+//        System.out.println(user);
+
+        return user;
+    }
+
+    @Override
+    public Student getStudentWithScore(Map<String, String> cookies, SystemType type, String path) throws IOException {
+        Student user = new Student();
+        queryStudentInfo(cookies, user);
+        queryScore(cookies, user, SystemType.OLD, path);
 
 //        System.out.println("解析后的成绩：");
 //        System.out.println(scores);
@@ -60,7 +74,7 @@ public class CrawlerServiceImpl implements CrawlerService {
      * @param type
      * @throws IOException
      */
-    private void queryScore(Map<String, String> cookies, Student user, SystemType type) throws IOException {
+    private void queryScore(Map<String, String> cookies, Student user, SystemType type, String path) throws IOException {
         if (type == SystemType.NEW) {
             // 请求选择角色接口，获取成绩查询url
             Document select = Jsoup.connect(SELECT_ROLE_API.replace("{}", String.valueOf(System.currentTimeMillis()))).ignoreContentType(true).cookies(cookies).get();
@@ -100,7 +114,7 @@ public class CrawlerServiceImpl implements CrawlerService {
             user.setScores(scores);
         } else if (type == SystemType.OLD) {
             // 老教务系统
-            Document ss = Jsoup.parse(new File("C:\\Users\\zimo\\Downloads\\详细成绩.html"), "gbk");
+            Document ss = Jsoup.parse(new File(path), "gbk");
             Element table = ss.getElementsByClass("tablebody").get(0);
             Elements trs = table.getElementsByTag("tr");
             List<Score> scores = new ArrayList<>();

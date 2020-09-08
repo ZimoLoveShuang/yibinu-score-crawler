@@ -6,20 +6,18 @@ import com.deepoove.poi.data.style.Style;
 import com.deepoove.poi.template.ElementTemplate;
 import com.deepoove.poi.util.TableTools;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
-import wiki.zimo.scorecrawler.ScoreCrawlerApplication;
 import wiki.zimo.scorecrawler.domain.Score;
 import wiki.zimo.scorecrawler.domain.Student;
 import wiki.zimo.scorecrawler.service.TemplateService;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class TemplateServiceImpl implements TemplateService {

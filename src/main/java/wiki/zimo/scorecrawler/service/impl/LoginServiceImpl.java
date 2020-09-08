@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -196,6 +198,27 @@ public class LoginServiceImpl implements LoginService {
         String salt = null;
         if (saltElement != null) {
             salt = saltElement.val();
+        }
+
+        // 网页中可能不存在id为pwdDefaultEncryptSalt的元素中，但提交的密码参数仍然需要加密
+        if (saltElement == null) {
+            Elements scripts = doc.getElementsByTag("script");
+            for (Element script : scripts) {
+                if (script.data().contains("pwdDefaultEncryptSalt")) {
+//                    System.out.println(script.data());
+                    // 用正则表达式匹配盐
+                    String pattern = "\"\\w{16}\"";
+                    Pattern p = Pattern.compile(pattern);
+                    Matcher m = p.matcher(script.data());
+                    if (m.find()) {
+                        String group = m.group();
+                        salt = group.substring(1, group.length() - 1);
+//                        System.out.println(group);
+//                        System.out.println(salt);
+                    }
+                    break;
+                }
+            }
         }
 
 //        System.out.println("盐是 " + salt);
